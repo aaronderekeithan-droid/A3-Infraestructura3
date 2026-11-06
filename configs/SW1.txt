@@ -1,0 +1,26 @@
+! SW1 - Cisco IOL L2 - Switch de la LAN
+! Estudiante: Aaron Hernandez - Matricula 2025-0800 - Red 10.8.25.0/24
+
+enable
+configure terminal
+hostname SW1
+no ip domain-lookup
+interface vlan 1
+ ip address 10.8.25.2 255.255.255.0
+ no shutdown
+ip default-gateway 10.8.25.1
+ip access-list standard SNMP-RO
+ permit 10.8.25.0 0.0.0.255
+snmp-server community ITLA0800ro RO SNMP-RO
+snmp-server location ITLA-Lab-2025-0800
+snmp-server contact aaron.hernandez
+line console 0
+ logging synchronous
+ exec-timeout 0 0
+end
+write memory
+
+! Verificacion
+! show ip interface brief
+! ping 10.8.25.1
+! show snmp community
